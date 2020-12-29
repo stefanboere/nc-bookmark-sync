@@ -1,3 +1,3 @@
 fn main() {
-    println!("Hello, world!");
+    nc_bookmark_sync::main();
 }

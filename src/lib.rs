@@ -1,13 +1,30 @@
 use serde::{Deserialize, Serialize};
 use std::collections::hash_map::Entry;
 use std::collections::{HashMap, HashSet};
+use std::env;
 use std::fs;
 use std::io::prelude::*;
+use std::path::PathBuf;
 
 type UnixTime = u64;
 
 pub fn main() {
-    let contents = fs::read_to_string("config.toml").unwrap();
+    let args: Vec<String> = env::args().collect();
+    let configfile: PathBuf = if args.len() > 1 {
+        let mut configdir = env::current_dir().unwrap();
+        configdir.push(&args[1]);
+        configdir
+    } else {
+        let mut configdir = dirs::config_dir().unwrap();
+        configdir.push("nc-bookmark-sync/config.toml");
+        configdir
+    };
+
+    if !configfile.exists() {
+        panic!("Config file {0} does not exist", configfile.display());
+    }
+
+    let contents = fs::read_to_string(configfile).unwrap();
     let config: Config = toml::from_str(&contents).unwrap();
 
     for (name, pair) in config.pair.iter() {
