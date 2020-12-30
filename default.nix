@@ -10,7 +10,7 @@ let
 
     src = pkgs.gitignoreSource ./.;
 
-    cargoSha256 = "1x102fwbh2jy0ywn9ab9mr1b5j1ly91k2j7avz1ipx15chznxb5c";
+    cargoSha256 = "0c3g79vqqmb400jci6qi2ymsmlz23knxq795dp4c9hqggs0hp185";
 
     meta = with pkgs.stdenv.lib; {
       description = "Sync Nextcloud bookmarks with a plain text file.";
