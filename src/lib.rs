@@ -865,6 +865,7 @@ impl NextcloudStorage {
         let bookmark_url = self.url.clone() + "/bookmark";
         let mut bookmarks: List<NcBookmark> = client
             .get(&bookmark_url)
+            .query(&[("limit", 10000)])
             .basic_auth(&self.username, Some(&self.password))
             .send()
             .map_err(Error::Reqwest)?
