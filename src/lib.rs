@@ -722,7 +722,11 @@ impl NextcloudStorage {
     }
 
     fn add_bookmark(&self, folder_id: i32, bookmark: Bookmark) -> Result<(), Error> {
-        let lastslash = bookmark.name.rfind(|c| c == '/').unwrap_or(0);
+        let lastslash = bookmark
+            .name
+            .rfind(|c| c == '/')
+            .map(|x| x + 1)
+            .unwrap_or(0);
         let (_, title) = bookmark.name.split_at(lastslash);
 
         let new_bookmark = NewNcBookmark {
@@ -780,7 +784,7 @@ impl NextcloudStorage {
                     return self.ensure_folder(child, &parts[1..]);
                 }
             }
-            return self.add_subfolders(folder, &parts[1..]);
+            return self.add_subfolders(folder, &parts);
         } else {
             Ok(folder.id)
         }
