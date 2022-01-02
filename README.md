@@ -21,7 +21,7 @@ nc-bookmark-sync <path-to-configuration-file>.toml
 ```
 
 The format of the configuration file is explained in the following section.
-You should probably run this once in a while, e.g. with as a systemd service.
+You should probably run this once in a while, e.g. as a systemd service.
 
 Configuration file format
 -------------------------
@@ -53,14 +53,16 @@ The format is as follows
 
 ```toml
 [storage.<storage_name>.password]
-fetch = ["command", "<executable>", "argument1", "argument2", ...]
+fetch = ["command", "<executable>", "argument1", "argument2", "..."]
 ```
 
 Nix module
 ----------
+
 The `nc-bookmark-sync` module is a home-manager module which configures a
 systemd service running `nc-bookmark-sync` at a certain interval.
-The overlay should be added to add the `nc-bookmark-sync` executable to the package sets.
+The overlay should be added to add the `nc-bookmark-sync` executable to the
+package sets.
 The hmModule should be imported to install the home manager module.
 
 Using `flake.nix`:
@@ -94,4 +96,4 @@ Using `flake.nix`:
 
 ```
 
-See for the configuration options in `modules/nc-bookmark-sync.nix`.
+See for the configuration options the file `modules/nc-bookmark-sync.nix`.
