@@ -1,0 +1,23 @@
+[general]
+status_path = "/home/exampleuser/.local/share/nc-bookmark-sync/status/"
+
+[pair]
+[pair.cloud_example_com]
+a = "cloud_example_com_local"
+b = "cloud_example_com_remote"
+conflict_resolution = "b wins"
+
+[storage]
+[storage.cloud_example_com_local]
+path = "/home/exampleuser/.config/qutebrowser/quickmarks"
+type = "file"
+
+[storage.cloud_example_com_remote]
+type = "nextcloud"
+url = "https://cloud.example.com/index.php/apps/bookmarks/public/rest/v2"
+
+[storage.cloud_example_com_remote.password]
+fetch = ["command", "dav-pass-info", "password", "cloud.example.com"]
+
+[storage.cloud_example_com_remote.username]
+fetch = ["command", "dav-pass-info", "username", "cloud.example.com"]

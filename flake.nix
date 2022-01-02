@@ -12,7 +12,12 @@
   };
 
   outputs = { self, nixpkgs, naersk, pre-commit-hooks, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+    {
+      overlay = final: prev: {
+        inherit (self.packages.${final.system}) nc-bookmark-sync;
+      };
+      hmModule = import ./modules/nc-bookmark-sync.nix;
+    } // flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         naersk-lib = naersk.lib.${system};
