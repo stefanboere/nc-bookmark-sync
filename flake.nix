@@ -26,7 +26,7 @@
           pre-commit-check = pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
-              nixfmt.enable = true;
+              nixfmt-classic.enable = true;
               rustfmt.enable = true;
             };
           };
@@ -58,10 +58,10 @@
           nativeBuildInputs = with pkgs; [
             rustc
             cargo
-            rls
+            rust-analyzer
             rustfmt
             openssl
-            pkgconfig
+            pkg-config
           ];
           inherit (self.checks.${system}.pre-commit-check) shellHook;
         };

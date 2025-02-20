@@ -5,6 +5,7 @@ use std::env;
 use std::fs;
 use std::io::prelude::*;
 use std::path::PathBuf;
+use thiserror::Error;
 
 type UnixTime = u64;
 
@@ -48,15 +49,23 @@ pub fn main() {
     }
 }
 
-#[derive(Debug)]
+#[derive(Error, Debug)]
 enum Error {
+    #[error("Missing config entry `{0}`")]
     MissingConfig(&'static str),
+    #[error("IO Error: {0}")]
     IOError(std::io::Error),
+    #[error("UTF8 parse error: {0}")]
     Utf8Error(std::string::FromUtf8Error),
+    #[error("Request error: {0}")]
     Reqwest(reqwest::Error),
+    #[error("Storage `{0}` not found")]
     StorageNotFound(&'static str),
+    #[error("Json print/parse error: {0}")]
     SerdeError(serde_json::Error),
+    #[error("Time error: {0}")]
     TimeError(std::time::SystemTimeError),
+    #[error("Sync conflict in storage `{0}`")]
     Conflict(String),
 }
 
@@ -160,6 +169,7 @@ struct SBookmark {
 
 #[derive(Debug)]
 struct Snapshot {
+    #[allow(unused_variables, dead_code)]
     at: UnixTime,
     bookmarks: Vec<SBookmark>,
 }
