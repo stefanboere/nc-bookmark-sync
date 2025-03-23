@@ -38,7 +38,7 @@
           version = "0.0.1";
 
           buildInputs = with pkgs; [ openssl ];
-          nativeBuildInputs = with pkgs; [ pkgconfig ];
+          nativeBuildInputs = with pkgs; [ pkg-config ];
 
           root = ./.;
 
